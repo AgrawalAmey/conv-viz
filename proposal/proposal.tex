@@ -1,0 +1,51 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2016_conference,times}
+\usepackage{hyperref}
+\usepackage{url}
+
+
+\title{ Project Proposal: Visualizing Convolutional Neural
+Networks using Deconvolution }
+
+
+\author{
+Amey Agrawal \& Jaikumar Balani \\
+\texttt{\{f2014148, f2014022\}@pilani.bits-pilani.ac.in} \\
+}
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\iclrfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\section{Introduction}
+
+Convolution neural networks have shown groundbreaking results in multiple
+computer vision tasks. But CNNs still widely remain a black box model.
+Here we attempt at building a framework to visualise a CNN using
+deconvolution.
+
+\section{Litrature Review}
+
+Multiple techniques were suggested by \citet{erhan2009visualizing} for visualisation
+of CNNs based upon activations of individual units. \citet{simonyan2013deep} established
+connection between gradient based methods of CNN visualisation and deconvolution
+networks. \citet{zeiler2014visualizing} introduced a way to visualise CNNs using
+deconvolution nets.
+
+\section{Deliverables}
+The framework would enable the user to visualize individual filter of a CNN on user
+input on a graphical interface. We would use Inception v3 checkpoint as our
+default network. The front-end UI would be built in JavaScript and HTML, while
+the backend would be running on python using tensorflow.
+
+\bibliography{iclr2016_conference}
+\bibliographystyle{iclr2016_conference}
+
+\end{document}
