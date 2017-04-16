@@ -6,15 +6,11 @@ from keras.applications import vgg16
 from keras import backend as K
 from keras.utils import plot_model
 import os
+import matplotlib.pypot as plt
 from utils import *
-import matplotlib.pyplot as plt
-
-# Make it run on CPU
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 
-class ActivationVisualizer(object):
+class GradientVisualizer(object):
     def __init__(self, model):
         self.model = model
         # dimensions of the generated pictures for each filter.
@@ -93,7 +89,7 @@ class ActivationVisualizer(object):
 
         return kept_filters
 
-    def show_filter_viz(self, kept_filters, grid_size=8):
+    def show_image(self, kept_filters, grid_size=8):
         # we will stich the best 64 filters on a 8 x 8 grid.
         n = grid_size
 
