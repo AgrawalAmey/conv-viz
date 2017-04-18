@@ -19,7 +19,7 @@ class DFlatten(object):
         self.layer = layer
         self.shape = layer.input_shape[1:]
         self.up_func = K.function(
-            [layer.input, K.learning_phase()], layer.output)
+            [layer.input, K.learning_phase()], [layer.output])
 
     # Flatten 2D input into 1D output
     def up(self, data, learning_phase=0):

@@ -7,6 +7,8 @@ from gradient import *
 from deconv import *
 from tsne import *
 import os
+import keras.backend as K
+from keras.layers import Conv2D
 
 # Make it run on CPU
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
@@ -50,8 +52,10 @@ while contin:
     print("-------------------------------------------------------------------")
 
     print('Please select the layer to be visualized:')
+    print('Note: Mode 4 always chooses last layer')
     for i in range(len(model.layers[1:])):
-        print("{}. {}".format(i + 1, model.layers[i + 1].name))
+        if isinstance(model.layers[i+1], Conv2D):
+            print("{}. {}".format(i + 1, model.layers[i + 1].name))
 
     layer_num = input('Please enter the option: ')
     layer_num = int(layer_num)
@@ -80,19 +84,27 @@ while contin:
         del gv
     elif(viz_mode == 2 or viz_mode == 3):
         # Get the filter number
-        filter_num = input('Please enter the filter number to be visualized: ')
+        # Find number of filters
+        if K.image_data_format() == 'channels_first':
+            filter_num = model.layers[layer_num].output.get_shape().as_list()[1]
+        else:
+            filter_num = model.layers[layer_num].output.get_shape().as_list()[3]
+
+        filter_num = input('Please enter the filter number to be visualized (0-{}): '.format(filter_num))
         filter_num = int(filter_num)
+
         # Select the image
         print('Please select the image')
         # we don't want a full GUI, so keep the root window from appearing
         Tk().withdraw()
         # show an "Open" dialog box and return the path to the selected file
         filename = askopenfilename()
+        print('Processing image...')
         # Init the object
         if(viz_mode == 2):
-            dv = DeconvVisualizer(model, layer_num, filter_num, "all")
+            dv = DeconvVisualizer(model, model.layers[layer_num].name, filter_num, "all")
         else:
-            dv = DeconvVisualizer(model, layer_num, filter_num, "max")
+            dv = DeconvVisualizer(model, model.layers[layer_num].name, filter_num, "max")
         # Load imgae
         image = dv.load_image(filename)
         # Forward
@@ -104,9 +116,10 @@ while contin:
         # Delete
         del dv
     elif(viz_mode == 4):
+        print('Processing images...')
         last_layer = model.layers[-1]
         if isinstance(last_layer, Dense) or isinstance(last_layer, Activation) or isinstance(last_layer, Flatten):
-            ts = TSNE(model)
+            ts = TSNEViz(model)
             ts.plot()
             del ts
         else:

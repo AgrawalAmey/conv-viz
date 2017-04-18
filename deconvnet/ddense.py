@@ -23,7 +23,7 @@ class DDense(object):
 
         # Set up_func for DDense
         input = Input(shape=layer.input_shape[1:])
-        output = Dense(output_dim=layer.output_shape[1],
+        output = Dense(units=layer.output_shape[1],
                        weights=[W, b])(input)
         self.up_func = K.function([input, K.learning_phase()], [output])
 
@@ -35,7 +35,7 @@ class DDense(object):
         flipped_weights = [W, b]
         input = Input(shape=self.output_shape[1:])
         output = Dense(
-            output_dim=self.input_shape[1],
+            units=self.input_shape[1],
             weights=flipped_weights)(input)
         self.down_func = K.function([input, K.learning_phase()], [output])
 

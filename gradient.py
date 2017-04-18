@@ -6,7 +6,7 @@ from keras.applications import vgg16
 from keras import backend as K
 from keras.utils import plot_model
 import os
-import matplotlib.pypot as plt
+import matplotlib.pyplot as plt
 from utils import *
 
 
@@ -14,8 +14,8 @@ class GradientVisualizer(object):
     def __init__(self, model):
         self.model = model
         # dimensions of the generated pictures for each filter.
-        self.img_width = 128
-        self.img_height = 128
+        self.img_width = 224
+        self.img_height = 224
 
     def process_layer(self, layer_num):
         # Select the layer
@@ -89,8 +89,8 @@ class GradientVisualizer(object):
 
         return kept_filters
 
-    def show_image(self, kept_filters, grid_size=8):
-        # we will stich the best 64 filters on a 8 x 8 grid.
+    def show_image(self, kept_filters, grid_size=2):
+        # we will stich the best 9 filters on a 8 x 8 grid.
         n = grid_size
 
         # the filters that have the highest loss are assumed to be better-looking.
