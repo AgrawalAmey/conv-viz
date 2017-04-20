@@ -1,4 +1,4 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,19 @@
 Erhan, Dumitru, Bengio, Yoshua, Courville, Aaron, and Vincent, Pascal.
 \newblock Visualizing higher-layer features of a deep network.
 \newblock \emph{University of Montreal}, 1341:\penalty0 3, 2009.
+
+\bibitem[Maaten \& Hinton(2008)Maaten and Hinton]{maaten2008visualizing}
+Maaten, Laurens van~der and Hinton, Geoffrey.
+\newblock Visualizing data using t-sne.
+\newblock \emph{Journal of Machine Learning Research}, 9\penalty0
+  (Nov):\penalty0 2579--2605, 2008.
+
+\bibitem[Simonyan et~al.(2013)Simonyan, Vedaldi, and
+  Zisserman]{simonyan2013deep}
+Simonyan, Karen, Vedaldi, Andrea, and Zisserman, Andrew.
+\newblock Deep inside convolutional networks: Visualising image classification
+  models and saliency maps.
+\newblock \emph{arXiv preprint arXiv:1312.6034}, 2013.
 
 \bibitem[Zeiler \& Fergus(2014)Zeiler and Fergus]{zeiler2014visualizing}
 Zeiler, Matthew~D and Fergus, Rob.

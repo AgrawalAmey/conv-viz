@@ -12,7 +12,7 @@ class TSNEViz(object):
         _, (x, _) = cifar10.load_data()
 
         # Selecting only n images
-        n = 50
+        n = 5
         self.x_orig = np.zeros((n, x.shape[1], x.shape[2], 3))
         self.x = np.zeros((n, 224, 224, 3))
         # Get random indicies

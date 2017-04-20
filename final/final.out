@@ -1,3 +1,11 @@
-\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Progress so far}{}% 2
-\BOOKMARK [1][-]{section.3}{Work Remaining}{}% 3
+\BOOKMARK [1][-]{section.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.3}{Problem Statment}{}% 3
+\BOOKMARK [1][-]{section.4}{Releated work}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Method 1: Deconvolutional Network}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Method 2: Gradient ascent on activation}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Method 3: t-SNE visualisation of dense layers}{section.4}% 7
+\BOOKMARK [1][-]{section.5}{Design of solution}{}% 8
+\BOOKMARK [1][-]{section.6}{Screeshots and visuals}{}% 9
+\BOOKMARK [1][-]{section.7}{Conclusion and Future Remaining}{}% 10
+\BOOKMARK [1][-]{section.8}{Contribution}{}% 11
