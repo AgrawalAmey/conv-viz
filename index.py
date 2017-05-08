@@ -77,9 +77,8 @@ while contin:
         # Init
         gv = GradientVisualizer(model)
         # Process layers
-        kept_filters = gv.process_layer(layer_num)
-        # Show image
-        gv.show_image(kept_filters)
+        data = gv.process_net()
+        print data
         # Delete
         del gv
     elif(viz_mode == 2 or viz_mode == 3):

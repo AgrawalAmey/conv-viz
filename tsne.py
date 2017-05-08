@@ -5,6 +5,7 @@ from scipy.misc import imresize
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 
 class TSNEViz(object):
     def __init__(self, model):
@@ -12,7 +13,7 @@ class TSNEViz(object):
         _, (x, _) = cifar10.load_data()
 
         # Selecting only n images
-        n = 5
+        n = 100
         self.x_orig = np.zeros((n, x.shape[1], x.shape[2], 3))
         self.x = np.zeros((n, 224, 224, 3))
         # Get random indicies
@@ -24,7 +25,7 @@ class TSNEViz(object):
 
     def plot(self):
         embeddings = self.model.predict(self.x)
-        tsne = TSNE().fit_transform(embeddings)
+        tsne = TSNE(init='pca').fit_transform(embeddings)
         fig, ax = plt.subplots()
         t_x, t_y = tsne[:, 0], tsne[:, 1]
         self.imscatter(t_x, t_y, self.x_orig, ax=ax)

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>ConvNet Visualization Toolkit</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/skeleton.css">
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <div class="container">
+        <div class="row header">
+            <div class="two columns" style="height:1px"></div>
+            <div class="one column">
+                <img id="logo" src="./images/logo.svg">
+            </div>
+            <div class="seven columns" id="title">
+                <h2>ConvNet Visualization Toolkit</h2>
+            </div>
+        </div>
+
+        <div class="row" id="loader" style="margin-top:20%">
+            <div class="four columns" style="height:1px"></div>
+            <div class="four columns">
+                <img src="./images/loader.gif" style="margin-left: 34px; width: 140px">
+                <h4 style="margin-top: 50px">Processing data...</h4>
+            </div>
+            <div class="four columns" style="height:1px"></div>
+        </div>
+
+        <div class="row fileForm" id="formDiv">
+            <div class="three columns" style="height:1px"></div>
+            <div class="six columns">
+                <form action="/upload_model" method="post" enctype="multipart/form-data" id="form">
+                    <label for="modelType">Please select the model mode</label>
+                    <select class="u-full-width" id="modelType" name="modelType">
+                      <option value="0">VGG-16 Checkpoint</option>
+                      <option value="1">Select a md5 file</option>
+                    </select>
+                    <div id="modelUpload">
+                        <label for="model">Please select the keras model to upload</label>
+                        <div class="file-input">
+                            <input type="file" id="files" name="model">
+                            <span class="button">Choose</span>
+                            <span class="label" data-js-label>No file selected</span>
+                        </div>
+                    </div>
+                    <label for="vizType">Please select the Visualization Method</label>
+                    <select class="u-full-width" id="vizType" name="vizType">
+                        <option value="0">Maximum Kernel Activation</option>
+                        <option value="1">Deconvolution</option>
+                        <option value="2">t-SNE</option>
+                      </select>
+                    <div id="pictureUpload">
+                        <label for="picture">Please select the picture to upload</label>
+                        <div class="file-input">
+                            <input type="file" id="files" name="picture">
+                            <span class="button">Choose</span>
+                            <span class="label" data-js-label>No file selected</span>
+                        </div>
+                    </div>
+                    <input class="button-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <!-- Scripts -->
+    <script src="/js/upload_file.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+.header {
+    padding-top: 70px;
+}
+
+#logo {
+    height: 70px;
+}
+
+#title {
+    padding-top: 10px;
+    color: #254f5f;
+}
+
+
+.file-input {
+  display: inline-block;
+  text-align: left;
+  background: #eee;
+  padding: 10px;
+  width: 100%;
+  position: relative;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.file-input > [type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.file-input > .button {
+  border-width: 0 !important;
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  background: #33c3f0;
+  padding: 0 16px;
+  border-radius: 5px;
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+
+.file-input:hover > .button {
+  background: #28abd4;
+  color: white;
+}
+
+.file-input > .label {
+  color: #333;
+  white-space: nowrap;
+}
+
+.file-input.-chosen > .label {
+  opacity: 1;
+}
+
+.fileForm {
+    margin-top: 20%;
+}
+
+#modelUpload{
+    display: none;
+}
+
+#pictureUpload{
+    display: none;
+}

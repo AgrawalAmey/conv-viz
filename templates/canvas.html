@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>ConvNet Visualization Toolkit</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/skeleton.css">
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row header">
+            <div class="two columns" style="height:1px"></div>
+            <div class="one column">
+                <img id="logo" src="./images/logo.svg">
+            </div>
+            <div class="seven columns" id="title">
+                <h2>ConvNet Visualization Toolkit</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve column" style="overflow:hidden;margin-top: 12%">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+        <div class="row" id="heatmaps">
+        </div>
+
+        {% for gallery in galleries %}
+        <div class="gallery">
+            <div class="grid-sizer"></div>
+            {% for image in gallery.images %}
+            <div class="item">
+                <img src="{{ image.url }}" class="image">
+                <a class="overlay" href="#">
+                    <h3 class="title"> {{ image.tile }} </h3>
+                    <div class="description">
+                        <p> {{ image.description }} </p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+
+        <script src="/js/draw.js"></script>
+        <script src="/js/draw_convnet.js"></script>
+
+        <script type="text/javascript">
+            var layer_data = "{{ layer_data }}";
+            layer_data = layer_data.replace(/&#34;/g, "\"");
+            layer_data = $.parseJSON(layer_data);
+
+            var filter_data = "{{ filter_data }}";
+            filter_data = filter_data.replace(/&#34;/g, "\"");
+            filter_data = $.parseJSON(filter_data);
+
+            for (count = 0; count < filter_data.length; count++) {
+                str = '<div class="twelve column" style="overflow:hidden;margin-top: 12%"><h4>' + filter_data[count][0][1] + '</h4><div id="heatmap' + count + '"></div></div>';
+                var e = $(str);
+                $('#heatmaps').append(e);
+
+                data = [];
+                for (j = 0; j < filter_data.length; j++) {
+                    data.push(parseFloat(filter_data[count][j][0]));
+                }
+
+                console.log(count);
+                data2d = [];
+
+                while (data.length) data2d.push(data.splice(0, 16));
+
+
+                drawConvnet(layer_data);
+
+                var data = [{
+                    z: data2d,
+                    type: 'heatmap',
+                    colorscale: 'YIGnBu',
+                }];
+
+                console.log(count);
+                console.log('heatmap' + count);
+                Plotly.newPlot('heatmap' + count, data);
+            }
+
+            $(".gallery").each(function() {
+                this.masonry({
+                    "itemSelector": ".item",
+                    "columnWidth": ".grid-sizer",
+                });
+            });
+        </script>
+
+</body>
+
+</html>

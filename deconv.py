@@ -8,7 +8,7 @@ import keras.backend as K
 from keras.applications import imagenet_utils
 from deconvnet import *
 import matplotlib.pyplot as plt
-from scipy.misc import imsave
+from scipy.misc import imsave, imshow
 
 class DeconvVisualizer(object):
     def __init__(self, model, layer_name, filter_to_visualize, visualize_mode):
@@ -110,9 +110,7 @@ class DeconvVisualizer(object):
         data = data * 255
 
         # display the image
-        plt.ion()
-        plt.imshow(data)
-        plt.show()
+        imshow(data)
 
         # Save image
         imsave('{}_{}_{}.png'.format(self.layer_name,

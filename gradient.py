@@ -7,6 +7,8 @@ from keras import backend as K
 from keras.utils import plot_model
 import os
 import matplotlib.pyplot as plt
+from keras.layers import Conv2D
+
 from utils import *
 
 
@@ -33,11 +35,10 @@ class GradientVisualizer(object):
         input_img = self.model.input
 
         # To be returned
-        kept_filters = []
+        output = []
 
-        for filter_index in range(filter_num):
-            # we only scan through the first 200 filters,
-            # but there are actually 512 of them
+        # for filter_index in range(filter_num):
+        for filter_index in range(2):
             print('Processing filter %d' % filter_index)
             start_time = time.time()
 
@@ -82,38 +83,32 @@ class GradientVisualizer(object):
             # decode the resulting input image
             if loss_value > 0:
                 img = deprocess_image(input_img_data[0])
-                kept_filters.append((img, loss_value))
+                output.append(
+                    [img, loss_value, self.model.layers[layer_num].name, filter_index])
+            else:
+                output.append(
+                    [np.zeros_like(img), loss_value, self.model.layers[layer_num].name, filter_index])
             end_time = time.time()
+
             print('Filter %d processed in %ds' %
                   (filter_index, end_time - start_time))
 
-        return kept_filters
+        return np.asarray(output)
 
-    def show_image(self, kept_filters, grid_size=2):
-        # we will stich the best 9 filters on a 8 x 8 grid.
-        n = grid_size
+    def save_images(self, output):
+        for i in range(len(output)):
+            imsave('./static/viz/{}_{}.png'.format(
+                output[i][2], output[i][3]), output[i][0])
 
-        # the filters that have the highest loss are assumed to be better-looking.
-        # we will only keep the top 64 filters.
-        kept_filters.sort(key=lambda x: x[1], reverse=True)
-        kept_filters = kept_filters[:n * n]
+        return output[:, 1:]
 
-        # build a black picture with enough space for
-        # our 8 x 8 filters of size 128 x 128, with a 5px margin in between
-        margin = 5
-        width = n * self.img_width + (n - 1) * margin
-        height = n * self.img_height + (n - 1) * margin
-        stitched_filters = np.zeros((width, height, 3))
+    def process_net(self):
+        results = []
+        for layer_num in range(3):
+            # for layer_num in range(len(self.model.layers)):
+            if isinstance(self.model.layers[layer_num], Conv2D):
+                output = self.process_layer(layer_num )
+                # Show image
+                results.append(self.save_images(output))
 
-        # fill the picture with our saved filters
-        for i in range(n):
-            for j in range(n):
-                img, loss = kept_filters[i * n + j]
-                stitched_filters[(self.img_width + margin) * i: (self.img_width + margin) * i + self.img_width,
-                                 (self.img_height + margin) * j: (self.img_height + margin) * j + self.img_height, :] = img
-
-        # display the image
-        plt.imshow(stitched_filters)
-        plt.show()
-        # save the result to disk
-        imsave('stitched_filters_%dx%d.png' % (n, n), stitched_filters)
+        return np.asarray(results)
