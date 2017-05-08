@@ -13,7 +13,7 @@ class TSNEViz(object):
         _, (x, _) = cifar10.load_data()
 
         # Selecting only n images
-        n = 100
+        n = 50
         self.x_orig = np.zeros((n, x.shape[1], x.shape[2], 3))
         self.x = np.zeros((n, 224, 224, 3))
         # Get random indicies
@@ -29,7 +29,7 @@ class TSNEViz(object):
         fig, ax = plt.subplots()
         t_x, t_y = tsne[:, 0], tsne[:, 1]
         self.imscatter(t_x, t_y, self.x_orig, ax=ax)
-        plt.show()
+        return plt
 
     def imscatter(self, x, y, images, ax=None, zoom=1):
         if ax is None:

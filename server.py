@@ -9,7 +9,7 @@ from keras.applications import *
 import numpy as np
 from gradient import *
 from deconv import *
-from tsne import *
+from tsne_server import TSNEViz
 import keras.backend as K
 from keras.layers import Conv2D, InputLayer, Dense
 
@@ -61,7 +61,7 @@ def upload_file():
     layer_data = json.dumps(layer_data)
 
 
-    if request.form['vizType'] == "0":
+    if request.form['vizType'] == "0":  # Max Kernel Activation
         gv = GradientVisualizer(model)
         filter_data = gv.process_net()
         filter_data = filter_data.tolist()
@@ -76,11 +76,17 @@ def upload_file():
         return render_template('canvas.html', layer_data=layer_data, filter_data=filter_data)
 
 
+    if request.form['vizType'] == "2":  # T-SNE
+        last_layer = model.layers[-1]
+        if isinstance(last_layer, Dense) or isinstance(last_layer, Activation) or isinstance(last_layer, Flatten):
+            ts = TSNEViz(model)
+            plt = ts.plot()
+            plt.savefig('./static/tsne.png')
+        else:
+            print('Cannot handle this type of layer')
+
+        return render_template('canvas.html', layer_data=layer_data, img=True)
+
     return "hello"
 
-
-
-
-
-
-app.run()
+app.run(debug=True)
